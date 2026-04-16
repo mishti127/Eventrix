@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .dashboard-container {
+            display: flex;
+            gap: 30px;
+            padding: 20px;
+        }
+
+        .dashboard-section {
+            flex: 1;
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .dashboard-section h2 {
+            color: #b8860b;
+            border-bottom: 3px solid #fddd5c;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .event-card {
+            background: linear-gradient(135deg, #fff9e6, #fffbea);
+            border-left: 5px solid #fddd5c;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .event-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(253, 221, 92, 0.3);
+        }
+
+        .event-card h4 {
+            margin: 0 0 8px 0;
+            color: #3a2a00;
+        }
+
+        .event-card p {
+            margin: 5px 0;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .event-date {
+            color: #b8860b;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .event-status {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-top: 8px;
+        }
+
+        .status-upcoming {
+            background-color: #fff3c4;
+            color: #b8860b;
+        }
+
+        .status-ongoing {
+            background-color: #ffe6e6;
+            color: #cc0000;
+        }
+
+        .status-completed {
+            background-color: #e6f3ff;
+            color: #0066cc;
+        }
+
+        .calendar {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .calendar th {
+            background-color: #fddd5c;
+            color: #3a2a00;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .calendar td {
+            width: 14.28%;
+            height: 80px;
+            border: 1px solid #ddd;
+            padding: 5px;
+            vertical-align: top;
+            background-color: #fafafa;
+        }
+
+        .calendar td.other-month {
+            background-color: #f0f0f0;
+            color: #999;
+        }
+
+        .calendar td.today {
+            background-color: #fffbea;
+            border: 2px solid #fddd5c;
+        }
+
+        .calendar td.has-event {
+            background-color: #fff9e6;
+        }
+
+        .calendar .date-number {
+            font-weight: bold;
+            color: #3a2a00;
+            margin-bottom: 3px;
+        }
+
+        .calendar .event-dot {
+            width: 6px;
+            height: 6px;
+            background-color: #b8860b;
+            border-radius: 50%;
+            display: inline-block;
+            margin: 0 2px;
+        }
+
+        .empty-message {
+            text-align: center;
+            color: #999;
+            padding: 20px;
+            font-style: italic;
+        }
+
+        .user-info {
+            background: linear-gradient(135deg, #fddd5c, #ffeb99);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .user-info h3 {
+            margin: 0 0 10px 0;
+            color: #3a2a00;
+        }
+
+        .user-info p {
+            margin: 5px 0;
+            color: #5a4a00;
+        }
+
+        .logout-button {
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .logout-button:hover {
+            background-color: #ff5252;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, #fff9e6, #fffbea);
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            border-left: 4px solid #b8860b;
+        }
+
+        .stat-box .number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #b8860b;
+        }
+
+        .stat-box .label {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-container {
+                flex-direction: column;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header align="center">
+    <h1>Annual College Fest & Events</h1>
+    <p>Your Personal Dashboard</p>
+
+    <a href="loginn.html" class="logout-btn">Logout</a>
+</header>
+
+<table border="1" width="100%">
+<tr>
+    <td width="20%" valign="top">
+        <h3>MENU</h3>
+        <ul>
+            <li><a href="dashboard.html">Dashboard</a></li><br>
+            <li><a href="main.html">Home</a></li><br>
+            <li><a href="index.html">About Fest</a></li><br>
+            <li><a href="event.html">Events</a></li><br>
+            <li><a href="cultural.html">Cultural</a></li><br>
+            <li><a href="technical.html">Technical</a></li><br>
+            <li><a href="upcoming.html">Upcoming Events</a></li><br>
+            <li><a href="event-reviews.html">Rate Events</a></li><br>
+            <li><a href="contact.html">Contact Us</a></li><br>
+            
+        </ul>
+    </td>
+
+    <td width="80%" valign="top">
+        <div class="dashboard-container">
+            <!-- Left Section: Registered Events -->
+            <div class="dashboard-section" style="flex: 1.2;">
+                <div class="user-info">
+                    <h3 id="userName">Welcome, Student!</h3>
+                    <p id="userEmail">Email: student@college.com</p>
+                    <p id="userReg">Registration No: 12345</p>
+                    
+                </div>
+
+                <div class="stats">
+                    <div class="stat-box">
+                        <div class="number" id="registeredCount">0</div>
+                        <div class="label">Events Registered</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="number" id="upcomingCount">0</div>
+                        <div class="label">Upcoming Events</div>
+                    </div>
+                </div>
+
+                <h2>Your Registered Events</h2>
+                <div id="registeredEventsList">
+                    <p class="empty-message">No events registered yet. <a href="event.html">Register now!</a></p>
+                </div>
+            </div>
+
+            <!-- Right Section: Calendar -->
+            <div class="dashboard-section">
+                <h2>Event Calendar</h2>
+                <div style="text-align: center; margin-bottom: 15px;">
+                    <button onclick="previousMonth()" style="padding: 8px 12px; cursor: pointer; margin-right: 10px;">← Previous</button>
+                    <span id="monthYear" style="font-weight: bold; min-width: 150px; display: inline-block;"></span>
+                    <button onclick="nextMonth()" style="padding: 8px 12px; cursor: pointer; margin-left: 10px;">Next →</button>
+                </div>
+                <table class="calendar">
+                    <thead>
+                        <tr>
+                            <th>Sun</th>
+                            <th>Mon</th>
+                            <th>Tue</th>
+                            <th>Wed</th>
+                            <th>Thu</th>
+                            <th>Fri</th>
+                            <th>Sat</th>
+                        </tr>
+                    </thead>
+                    <tbody id="calendarBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </td>
+</tr>
+</table>
+
+<script>
+    // Sample registered events data (in real scenario, this would come from database/localStorage)
+    let registeredEvents = [
+        {
+            id: 1,
+            name: "Annual Coding Contest",
+            date: "2026-02-10",
+            time: "10:00 AM",
+            location: "Tech Lab",
+            status: "upcoming",
+            category: "Technical"
+        },
+        {
+            id: 2,
+            name: "Cultural Dance Night",
+            date: "2026-02-15",
+            time: "6:00 PM",
+            location: "Auditorium",
+            status: "upcoming",
+            category: "Cultural"
+        },
+        {
+            id: 3,
+            name: "Web Development Workshop",
+            date: "2026-02-05",
+            time: "2:00 PM",
+            location: "Computer Center",
+            status: "upcoming",
+            category: "Technical"
+        }
+    ];
+
+    // Initialize dashboard on page load
+    document.addEventListener("DOMContentLoaded", function() {
+        loadUserInfo();
+        displayRegisteredEvents();
+        displayCalendar(new Date());
+    });
+
+    // Load user information from localStorage
+    function loadUserInfo() {
+        let userInfo = JSON.parse(localStorage.getItem("userInfo"));
+        if (userInfo) {
+            document.getElementById("userName").textContent = "Welcome, " + userInfo.name + "!";
+            document.getElementById("userEmail").textContent = "Email: " + userInfo.email;
+            document.getElementById("userReg").textContent = "Registration No: " + userInfo.regno;
+        }
+    }
+
+    // Display registered events
+    function displayRegisteredEvents() {
+        const container = document.getElementById("registeredEventsList");
+        
+        if (registeredEvents.length === 0) {
+            container.innerHTML = '<p class="empty-message">No events registered yet. <a href="event.html">Register now!</a></p>';
+            document.getElementById("registeredCount").textContent = "0";
+            document.getElementById("upcomingCount").textContent = "0";
+            return;
+        }
+
+        let html = "";
+        let upcomingCount = 0;
+
+        registeredEvents.forEach(event => {
+            const eventDate = new Date(event.date);
+            const today = new Date();
+            if (eventDate > today) upcomingCount++;
+
+            html += `
+                <div class="event-card" onclick="showEventDetails(${event.id})">
+                    <h4>${event.name}</h4>
+                    <p><strong>Category:</strong> ${event.category}</p>
+                    <p class="event-date">📅 ${formatDate(event.date)} | ⏰ ${event.time}</p>
+                    <p><strong>📍 Location:</strong> ${event.location}</p>
+                    <span class="event-status status-${event.status}">${event.status.toUpperCase()}</span>
+                </div>
+            `;
+        });
+
+        container.innerHTML = html;
+        document.getElementById("registeredCount").textContent = registeredEvents.length;
+        document.getElementById("upcomingCount").textContent = upcomingCount;
+    }
+
+    // Show event details (can be expanded to modal)
+    function showEventDetails(eventId) {
+        const event = registeredEvents.find(e => e.id === eventId);
+        alert(`Event: ${event.name}\nDate: ${formatDate(event.date)}\nTime: ${event.time}\nLocation: ${event.location}`);
+    }
+
+    // Calendar functions
+    let currentDate = new Date();
+
+    function displayCalendar(date) {
+        const year = date.getFullYear();
+        const month = date.getMonth();
+
+        // Update month/year display
+        const monthNames = ["January", "February", "March", "April", "May", "June",
+                          "July", "August", "September", "October", "November", "December"];
+        document.getElementById("monthYear").textContent = monthNames[month] + " " + year;
+
+        // Get first day of month and number of days
+        const firstDay = new Date(year, month, 1).getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        const daysInPrevMonth = new Date(year, month, 0).getDate();
+
+        let html = "";
+        let dayCounter = 1;
+        let nextMonthDay = 1;
+
+        // Create calendar grid (6 rows x 7 columns)
+        for (let week = 0; week < 6; week++) {
+            for (let day = 0; day < 7; day++) {
+                let cellDate = null;
+                let cellClass = "";
+                let cellContent = "";
+
+                if (week === 0 && day < firstDay) {
+                    // Previous month's days
+                    cellContent = daysInPrevMonth - firstDay + day + 1;
+                    cellClass = "other-month";
+                } else if (dayCounter <= daysInMonth) {
+                    // Current month's days
+                    cellDate = new Date(year, month, dayCounter);
+                    cellContent = dayCounter;
+
+                    // Check if today
+                    const today = new Date();
+                    if (cellDate.getFullYear() === today.getFullYear() &&
+                        cellDate.getMonth() === today.getMonth() &&
+                        cellDate.getDate() === today.getDate()) {
+                        cellClass = "today";
+                    }
+
+                    // Check if has event
+                    const hasEvent = registeredEvents.some(event => {
+                        const eventDate = new Date(event.date);
+                        return eventDate.getFullYear() === cellDate.getFullYear() &&
+                               eventDate.getMonth() === cellDate.getMonth() &&
+                               eventDate.getDate() === cellDate.getDate();
+                    });
+
+                    if (hasEvent) {
+                        cellClass += " has-event";
+                        cellContent += '<br><span class="event-dot"></span>';
+                    }
+
+                    dayCounter++;
+                } else {
+                    // Next month's days
+                    cellContent = nextMonthDay;
+                    cellClass = "other-month";
+                    nextMonthDay++;
+                }
+
+                html += `<td class="${cellClass}"><div class="date-number">${cellContent}</div></td>`;
+            }
+            html += "</tr><tr>";
+        }
+
+        document.getElementById("calendarBody").innerHTML = "<tr>" + html + "</tr>";
+    }
+
+    function previousMonth() {
+        currentDate.setMonth(currentDate.getMonth() - 1);
+        displayCalendar(currentDate);
+    }
+
+    function nextMonth() {
+        currentDate.setMonth(currentDate.getMonth() + 1);
+        displayCalendar(currentDate);
+    }
+
+    // Utility function to format date
+    function formatDate(dateString) {
+        const options = { year: 'numeric', month: 'short', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString('en-US', options);
+    }
+
+    // Logout function
+    function logout() {
+        localStorage.removeItem("userInfo");
+        alert("Logged out successfully!");
+        window.location.href = "login.html";
+    }
+
+    // Add event to registered events (call this from event.html)
+    function addRegisteredEvent(eventName, eventDate, eventTime, eventLocation, eventCategory) {
+        const newEvent = {
+            id: registeredEvents.length + 1,
+            name: eventName,
+            date: eventDate,
+            time: eventTime,
+            location: eventLocation,
+            status: "upcoming",
+            category: eventCategory
+        };
+        registeredEvents.push(newEvent);
+        localStorage.setItem("registeredEvents", JSON.stringify(registeredEvents));
+        displayRegisteredEvents();
+    }
+</script>
+
+</body>
+</html>

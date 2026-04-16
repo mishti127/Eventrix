@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="events.xsl"?>
+
+<college>
+
+<event>
+<name>Code Fiesta</name>
+<date>15 March 2026</date>
+<time>10:00 AM</time>
+<venue>Computer Lab</venue>
+<organizer>CSE Department</organizer>
+<description>Coding contest focusing on algorithms and problem-solving skills.</description>
+<image>images/hackathon.jpg</image>
+<category>Technical</category>
+</event>
+
+<event>
+<name>Cultural Night</name>
+<date>18 March 2026</date>
+<time>6:00 PM</time>
+<venue>College Auditorium</venue>
+<organizer>Cultural Committee</organizer>
+<description>Music, dance, and drama performances by talented students.</description>
+<image>images/dance.jpg</image>
+<category>Cultural</category>
+</event>
+
+<event>
+<name>Robotics Workshop</name>
+<date>20 March 2026</date>
+<time>11:00 AM</time>
+<venue>Mechanical Lab</venue>
+<organizer>Robotics Club</organizer>
+<description>Hands-on training on robotics and automation.</description>
+<image>images/robotic.jpg</image>
+<category>Technical</category>
+</event>
+
+<event>
+<name>Hackathon 2026</name>
+<date>22 March 2026</date>
+<time>9:00 AM</time>
+<venue>IT Building</venue>
+<organizer>Computer Society</organizer>
+<description>48-hour coding marathon to build innovative solutions.</description>
+<image>images/hack.jpg</image>
+<category>Technical</category>
+</event>
+
+<event>
+<name>Music Fest</name>
+<date>25 March 2026</date>
+<time>5:00 PM</time>
+<venue>Open Air Theatre</venue>
+<organizer>Music Club</organizer>
+<description>Live music performances featuring various genres and artists.</description>
+<image>images/music.jpg</image>
+<category>Cultural</category>
+</event>
+
+</college>

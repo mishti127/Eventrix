@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Events - Rate & Review</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background-color: #fffbea;
+            color: #333;
+        }
+
+        .events-container {
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .event-item {
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .event-header {
+            background: linear-gradient(135deg, #fddd5c, #ffeb99);
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+            transition: 0.3s;
+        }
+
+        .event-header:hover {
+            background: linear-gradient(135deg, #ffeb99, #ffd700);
+        }
+
+        .event-title-section h3 {
+            margin: 0;
+            color: #3a2a00;
+            font-size: 20px;
+        }
+
+        .event-title-section p {
+            margin: 5px 0 0 0;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .expand-icon {
+            font-size: 24px;
+            color: #b8860b;
+            transition: transform 0.3s;
+        }
+
+        .event-header.expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+
+        .event-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .event-content.expanded {
+            max-height: 1500px;
+            transition: max-height 0.3s ease-in;
+        }
+
+        .event-details {
+            padding: 30px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .detail-row {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 20px;
+            margin-bottom: 15px;
+            align-items: start;
+        }
+
+        .detail-label {
+            font-weight: bold;
+            color: #b8860b;
+        }
+
+        .detail-value {
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .event-description {
+            background: #f9f9f9;
+            padding: 20px;
+            border-left: 4px solid #fddd5c;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .event-description h4 {
+            margin-top: 0;
+            color: #b8860b;
+        }
+
+        .rating-section {
+            background: #f0f8ff;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #0066cc;
+        }
+
+        .rating-section h4 {
+            margin-top: 0;
+            color: #0066cc;
+        }
+
+        .rating-stars {
+            font-size: 32px;
+            margin: 15px 0;
+            letter-spacing: 8px;
+        }
+
+        .star {
+            cursor: pointer;
+            color: #ddd;
+            transition: color 0.2s;
+        }
+
+        .star.active,
+        .star.hover {
+            color: #ffc107;
+        }
+
+        .rating-text {
+            background: white;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .review-textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            min-height: 100px;
+        }
+
+        .submit-btn {
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #0052a3;
+        }
+
+        .submit-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .reviews-list {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .reviews-list h4 {
+            margin-top: 0;
+            color: #b8860b;
+        }
+
+        .review-item {
+            background: white;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-radius: 4px;
+            border-left: 4px solid #fddd5c;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .review-author {
+            font-weight: bold;
+            color: #3a2a00;
+        }
+
+        .review-rating {
+            color: #ffc107;
+            font-size: 16px;
+            letter-spacing: 3px;
+        }
+
+        .review-date {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .review-text {
+            color: #555;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .no-reviews {
+            text-align: center;
+            color: #999;
+            padding: 20px;
+            font-style: italic;
+        }
+
+        .register-btn {
+            background-color: #b8860b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .register-btn:hover {
+            background-color: #9a6f08;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .event-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+            background: #fffbea;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .meta-item {
+            text-align: center;
+            padding: 10px;
+        }
+
+        .meta-label {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 5px;
+        }
+
+        .meta-value {
+            font-weight: bold;
+            color: #b8860b;
+            font-size: 16px;
+        }
+
+        .average-rating {
+            text-align: center;
+            background: linear-gradient(135deg, #fff9e6, #fffbea);
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .average-rating .stars {
+            font-size: 28px;
+            color: #ffc107;
+            margin: 10px 0;
+            letter-spacing: 5px;
+        }
+
+        .average-rating .rating-value {
+            font-size: 18px;
+            font-weight: bold;
+            color: #b8860b;
+        }
+
+        @media (max-width: 768px) {
+            .detail-row {
+                grid-template-columns: 1fr;
+            }
+
+            .event-meta {
+                grid-template-columns: 1fr;
+            }
+
+            .review-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header align="center">
+    <h1>Annual College Fest & Events</h1>
+    <p>Events - Rate & Review</p>
+    <a href="loginn.html" class="logout-btn">Logout</a>
+</header>
+
+<table border="1" width="100%">
+<tr>
+    <td width="20%" valign="top">
+        <h3>MENU</h3>
+        <ul>
+            <li><a href="dashboard.html">Dashboard</a></li><br>
+            <li><a href="main.html">Home</a></li><br>
+            <li><a href="index.html">About Fest</a></li><br>
+            <li><a href="event.html">Events</a></li><br>
+            <li><a href="cultural.html">Cultural</a></li><br>
+            <li><a href="technical.html">Technical</a></li><br>
+            <li><a href="upcoming.html">Upcoming Events</a></li><br>
+            <li><a href="event-reviews.html">Rate Events</a></li><br>
+            <li><a href="contact.html">Contact Us</a></li><br>
+        </ul>
+    </td>
+
+    <td width="80%" valign="top">
+        <div class="events-container">
+            <div id="eventsContainer"></div>
+        </div>
+    </td>
+</tr>
+</table>
+
+<script>
+    // Sample events data with reviews
+    let allEvents = [
+        {
+            id: 1,
+            name: "Annual Coding Contest",
+            date: "2026-02-10",
+            time: "10:00 AM - 1:00 PM",
+            location: "Tech Lab, Building A",
+            category: "Technical",
+            duration: "3 hours",
+            capacity: "100 students",
+            description: "A thrilling coding competition where students showcase their problem-solving skills. Participants compete in various difficulty levels from beginners to advanced. Winners get exciting prizes and recognition.",
+            detailedInfo: "This event is designed to test logical thinking, coding efficiency, and problem-solving abilities. Participants will solve algorithmic challenges within time limits. Multiple programming languages are supported.",
+            registrationFee: "Free for college students",
+            reviews: [
+                { author: "John Doe", rating: 5, text: "Amazing event! Great judges and interesting problems.", date: "2026-02-11" },
+                { author: "Sarah Smith", rating: 4, text: "Well organized but could have better time management.", date: "2026-02-11" }
+            ]
+        },
+        {
+            id: 2,
+            name: "Cultural Dance Night",
+            date: "2026-02-15",
+            time: "6:00 PM - 9:00 PM",
+            location: "Main Auditorium",
+            category: "Cultural",
+            duration: "3 hours",
+            capacity: "500 audience",
+            description: "A spectacular showcase of dance performances featuring classical, contemporary, and fusion styles. Students from various departments perform on stage with professional choreography and lighting.",
+            detailedInfo: "Multiple dance styles including Bharatanatyam, Hip-Hop, Bollywood, and Western contemporary. Professional stage setup with sound system and lighting. Open for all students to perform.",
+            registrationFee: "Free entry",
+            reviews: [
+                { author: "Emma Wilson", rating: 5, text: "Absolutely fantastic! The performances were stunning.", date: "2026-02-16" }
+            ]
+        },
+        {
+            id: 3,
+            name: "Web Development Workshop",
+            date: "2026-02-05",
+            time: "2:00 PM - 5:00 PM",
+            location: "Computer Center, Wing B",
+            category: "Technical",
+            duration: "3 hours",
+            capacity: "50 students",
+            description: "Learn modern web development from industry experts. This workshop covers HTML, CSS, JavaScript, and React frameworks. Hands-on practice with live coding sessions.",
+            detailedInfo: "Learn from real-world projects. Cover responsive design, modern JavaScript ES6+, and React hooks. Certificate of participation provided.",
+            registrationFee: "₹100 for non-technical students, Free for tech students",
+            reviews: [
+                { author: "Alex Kumar", rating: 4, text: "Great learning experience. Could have more hands-on time.", date: "2026-02-06" },
+                { author: "Maya Patel", rating: 5, text: "Excellent instructor! Clear explanations and helpful.", date: "2026-02-06" },
+                { author: "Raj Singh", rating: 3, text: "Good content but too fast-paced for beginners.", date: "2026-02-07" }
+            ]
+        },
+        {
+            id: 4,
+            name: "Photography Exhibition",
+            date: "2026-02-20",
+            time: "10:00 AM - 6:00 PM",
+            location: "College Gallery",
+            category: "Cultural",
+            duration: "Full day",
+            capacity: "Unlimited",
+            description: "Display of stunning photographs captured by student photographers. Categories include landscape, portrait, street photography, and abstract art.",
+            detailedInfo: "Open gallery showing best works from college photography club. Voting for best photography and audience choice awards.",
+            registrationFee: "Free entry",
+            reviews: []
+        },
+        {
+            id: 5,
+            name: "Hackathon 2026",
+            date: "2026-03-01",
+            time: "9:00 AM (24-hour event)",
+            location: "Innovation Hub",
+            category: "Technical",
+            duration: "24 hours",
+            capacity: "200 participants",
+            description: "A 24-hour intensive coding event where teams build innovative solutions. Food, mentorship, and prizes provided. Focus on creativity and implementation.",
+            detailedInfo: "Form teams of 3-5 members. Work on real-world problems. Mentors available throughout. Free meals and refreshments provided.",
+            registrationFee: "₹500 per team",
+            reviews: [
+                { author: "DevTeam X", rating: 5, text: "Best hackathon experience! Loved the energy and support.", date: "2026-03-02" },
+                { author: "Code Masters", rating: 4, text: "Great venue and mentorship. More prizes would be better.", date: "2026-03-02" }
+            ]
+        }
+    ];
+
+    // Load reviews from localStorage
+    function loadReviews() {
+        const savedReviews = localStorage.getItem("eventReviews");
+        if (savedReviews) {
+            const userReviews = JSON.parse(savedReviews);
+            userReviews.forEach(review => {
+                const event = allEvents.find(e => e.id === review.eventId);
+                if (event) {
+                    event.reviews.push({
+                        author: review.author,
+                        rating: review.rating,
+                        text: review.text,
+                        date: review.date
+                    });
+                }
+            });
+        }
+    }
+
+    // Initialize on page load
+    document.addEventListener("DOMContentLoaded", function() {
+        loadReviews();
+        renderEvents();
+    });
+
+    // Render all events with expandable cards
+    function renderEvents() {
+        const container = document.getElementById("eventsContainer");
+        container.innerHTML = "";
+
+        allEvents.forEach(event => {
+            const eventHTML = `
+                <div class="event-item">
+                    <div class="event-header" onclick="toggleEvent(this, ${event.id})">
+                        <div class="event-title-section">
+                            <h3>${event.name}</h3>
+                            <p>📅 ${formatDate(event.date)} | 🏷️ ${event.category}</p>
+                        </div>
+                        <span class="expand-icon">▼</span>
+                    </div>
+
+                    <div class="event-content" id="content-${event.id}">
+                        <div class="event-details">
+                            <!-- Event Metadata -->
+                            <div class="event-meta">
+                                <div class="meta-item">
+                                    <div class="meta-label">⏰ Duration</div>
+                                    <div class="meta-value">${event.duration}</div>
+                                </div>
+                                <div class="meta-item">
+                                    <div class="meta-label">👥 Capacity</div>
+                                    <div class="meta-value">${event.capacity}</div>
+                                </div>
+                                <div class="meta-item">
+                                    <div class="meta-label">💰 Fee</div>
+                                    <div class="meta-value">${event.registrationFee}</div>
+                                </div>
+                            </div>
+
+                            <!-- Event Details -->
+                            <div class="detail-row">
+                                <div class="detail-label">📍 Location:</div>
+                                <div class="detail-value">${event.location}</div>
+                            </div>
+
+                            <div class="detail-row">
+                                <div class="detail-label">🕐 Time:</div>
+                                <div class="detail-value">${event.time}</div>
+                            </div>
+
+                            <!-- Event Description -->
+                            <div class="event-description">
+                                <h4>About this Event</h4>
+                                <p>${event.description}</p>
+                                <p><strong>Details:</strong> ${event.detailedInfo}</p>
+                            </div>
+
+                            <!-- Rating & Review Section -->
+                            <div class="rating-section">
+                                <h4>⭐ Rate & Review this Event</h4>
+                                
+                                <!-- Average Rating -->
+                                ${event.reviews.length > 0 ? `
+                                    <div class="average-rating">
+                                        <div class="rating-value">${calculateAverageRating(event.reviews).toFixed(1)} / 5.0</div>
+                                        <div class="stars">${generateStars(Math.round(calculateAverageRating(event.reviews)))}</div>
+                                        <div style="font-size: 12px; color: #999;">${event.reviews.length} ${event.reviews.length === 1 ? 'review' : 'reviews'}</div>
+                                    </div>
+                                ` : ''}
+
+                                <!-- Rating Form -->
+                                <div style="margin-top: 20px;">
+                                    <p style="margin-bottom: 10px; font-weight: bold;">Your Rating:</p>
+                                    <div class="rating-stars" id="stars-${event.id}">
+                                        <span class="star" onclick="selectRating(${event.id}, 1)" onmouseover="hoverRating(${event.id}, 1)" onmouseout="unhoverRating(${event.id})">★</span>
+                                        <span class="star" onclick="selectRating(${event.id}, 2)" onmouseover="hoverRating(${event.id}, 2)" onmouseout="unhoverRating(${event.id})">★</span>
+                                        <span class="star" onclick="selectRating(${event.id}, 3)" onmouseover="hoverRating(${event.id}, 3)" onmouseout="unhoverRating(${event.id})">★</span>
+                                        <span class="star" onclick="selectRating(${event.id}, 4)" onmouseover="hoverRating(${event.id}, 4)" onmouseout="unhoverRating(${event.id})">★</span>
+                                        <span class="star" onclick="selectRating(${event.id}, 5)" onmouseover="hoverRating(${event.id}, 5)" onmouseout="unhoverRating(${event.id})">★</span>
+                                    </div>
+                                    <div class="rating-text" id="rating-text-${event.id}">Select a rating</div>
+
+                                    <p style="margin-bottom: 10px; font-weight: bold; margin-top: 15px;">Your Review:</p>
+                                    <textarea class="review-textarea" id="review-${event.id}" placeholder="Share your experience with this event..."></textarea>
+
+                                    <div class="button-group">
+                                        <button class="submit-btn" onclick="submitReview(${event.id})">Submit Review</button>
+                                        <button class="register-btn" onclick="registerEvent(${event.id})">Register for Event</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Reviews List -->
+                            ${event.reviews.length > 0 ? `
+                                <div class="reviews-list">
+                                    <h4>📝 Reviews (${event.reviews.length})</h4>
+                                    ${event.reviews.map(review => `
+                                        <div class="review-item">
+                                            <div class="review-header">
+                                                <div>
+                                                    <div class="review-author">${review.author}</div>
+                                                    <div class="review-date">${review.date}</div>
+                                                </div>
+                                                <div class="review-rating">${generateStars(review.rating)}</div>
+                                            </div>
+                                            <div class="review-text">${review.text}</div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            ` : `
+                                <div class="reviews-list">
+                                    <h4>📝 Reviews</h4>
+                                    <div class="no-reviews">No reviews yet. Be the first to review!</div>
+                                </div>
+                            `}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            container.innerHTML += eventHTML;
+        });
+    }
+
+    // Toggle event expansion
+    function toggleEvent(header, eventId) {
+        header.classList.toggle("expanded");
+        const content = document.getElementById(`content-${eventId}`);
+        content.classList.toggle("expanded");
+    }
+
+    // Rating functions
+    let selectedRatings = {};
+
+    function selectRating(eventId, rating) {
+        selectedRatings[eventId] = rating;
+        updateRatingDisplay(eventId, rating);
+        document.getElementById(`rating-text-${eventId}`).textContent = rating + " star" + (rating > 1 ? "s" : "");
+    }
+
+    function hoverRating(eventId, rating) {
+        updateRatingDisplay(eventId, rating);
+    }
+
+    function unhoverRating(eventId) {
+        if (selectedRatings[eventId]) {
+            updateRatingDisplay(eventId, selectedRatings[eventId]);
+        } else {
+            Array.from(document.querySelectorAll(`#stars-${eventId} .star`)).forEach(s => s.classList.remove("hover"));
+        }
+    }
+
+    function updateRatingDisplay(eventId, rating) {
+        const stars = document.querySelectorAll(`#stars-${eventId} .star`);
+        stars.forEach((star, index) => {
+            if (index < rating) {
+                star.classList.add("hover");
+                star.classList.remove("active");
+            } else {
+                star.classList.remove("hover");
+            }
+        });
+    }
+
+    // Submit review
+    function submitReview(eventId) {
+        const rating = selectedRatings[eventId];
+        const reviewText = document.getElementById(`review-${eventId}`).value.trim();
+        const userName = JSON.parse(localStorage.getItem("userInfo"))?.name || "Anonymous";
+
+        if (!rating) {
+            alert("Please select a rating!");
+            return;
+        }
+
+        if (!reviewText) {
+            alert("Please write a review!");
+            return;
+        }
+
+        const event = allEvents.find(e => e.id === eventId);
+        const newReview = {
+            author: userName,
+            rating: rating,
+            text: reviewText,
+            date: new Date().toISOString().split('T')[0]
+        };
+
+        event.reviews.push(newReview);
+
+        // Save to localStorage
+        let savedReviews = JSON.parse(localStorage.getItem("eventReviews")) || [];
+        savedReviews.push({
+            eventId: eventId,
+            ...newReview
+        });
+        localStorage.setItem("eventReviews", JSON.stringify(savedReviews));
+
+        // Clear form
+        selectedRatings[eventId] = null;
+        document.getElementById(`review-${eventId}`).value = "";
+        document.getElementById(`rating-text-${eventId}`).textContent = "Select a rating";
+
+        alert("Review submitted successfully!");
+        renderEvents();
+    }
+
+    // Register for event
+    function registerEvent(eventId) {
+        const event = allEvents.find(e => e.id === eventId);
+        const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+
+        if (!userInfo) {
+            alert("Please login first!");
+            window.location.href = "login.html";
+            return;
+        }
+
+        alert("Successfully registered for: " + event.name + "\n\nConfirmation email sent to " + userInfo.email);
+    }
+
+    // Utility functions
+    function generateStars(rating) {
+        let stars = "";
+        for (let i = 0; i < 5; i++) {
+            stars += i < rating ? "★" : "☆";
+        }
+        return stars;
+    }
+
+    function calculateAverageRating(reviews) {
+        if (reviews.length === 0) return 0;
+        const sum = reviews.reduce((acc, review) => acc + review.rating, 0);
+        return sum / reviews.length;
+    }
+
+    function formatDate(dateString) {
+        const options = { month: 'short', day: 'numeric', year: 'numeric' };
+        return new Date(dateString).toLocaleDateString('en-US', options);
+    }
+</script>
+
+</body>
+</html>

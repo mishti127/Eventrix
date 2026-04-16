@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Login | College Events</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f0e8;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-wrapper {
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(241, 181, 0, 0.15);
+            width: 100%;
+            max-width: 900px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            overflow: hidden;
+        }
+
+        .login-illustration {
+            background: linear-gradient(135deg, #fddda9 0%, #ede5d9 100%);
+            padding: 60px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            position: relative;
+        }
+
+        .illustration-icon {
+            font-size: 100px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .illustration-text {
+            text-align: center;
+            color: #333;
+        }
+
+        .illustration-text h2 {
+            font-size: 22px;
+            margin-bottom: 12px;
+            color: #b8860b;
+            font-weight: 700;
+        }
+
+        .illustration-text p {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .login-form-container {
+            padding: 60px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .form-header {
+            margin-bottom: 36px;
+            text-align: center;
+        }
+
+        .form-header h1 {
+            font-size: 32px;
+            color: #b8860b;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .form-header p {
+            color: #666;
+            font-size: 13px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            color: #3a2a00;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 14px;
+            margin-bottom: 18px;
+            border: 2px solid #f1b500;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            background: #fafafa;
+            transition: all 300ms ease;
+        }
+
+        input::placeholder {
+            color: #999;
+        }
+
+        input:focus {
+            border-color: #f7e16c;
+            background: #fff;
+            box-shadow: 0 4px 12px rgba(241, 181, 0, 0.15);
+        }
+
+        .help-text {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+
+        .help-text a {
+            font-size: 13px;
+            color: #666;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .help-text a:hover {
+            text-decoration: underline;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #f1b500;
+            border: none;
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 300ms ease;
+            margin-bottom: 20px;
+        }
+
+        button:hover:not(:disabled) {
+            background: #ffed4e;
+            color: #3a2a00;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(241, 181, 0, 0.3);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin-bottom: 18px;
+            color: #999;
+            font-size: 12px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #ddd;
+        }
+
+        .divider::before {
+            margin-right: 10px;
+        }
+
+        .divider::after {
+            margin-left: 10px;
+        }
+
+        .social-login {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .social-btn {
+            padding: 11px;
+            border: 1px solid #e0c97f;
+            background: #fafafa;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 13px;
+            transition: all 300ms ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: #3a2a00;
+        }
+
+        .social-btn:hover {
+            border-color: #b8860b;
+            background: #fffef0;
+        }
+
+        .signup-section {
+            text-align: center;
+            padding-top: 12px;
+            border-top: 1px solid #eee;
+        }
+
+        .signup-section p {
+            font-size: 13px;
+            color: #333;
+        }
+
+        .signup-link {
+            color: #b8860b;
+            text-decoration: none;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .signup-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .login-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .login-illustration {
+                padding: 40px 30px;
+                min-height: 250px;
+            }
+
+            .login-form-container {
+                padding: 40px 30px;
+            }
+
+            .form-header h1 {
+                font-size: 28px;
+            }
+
+            .illustration-icon {
+                font-size: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-wrapper">
+    <!-- Left Side: Illustration -->
+    <div class="login-illustration">
+        <div class="illustration-icon">👩‍💻</div>
+        <div class="illustration-text">
+            <h2>Welcome Back!</h2>
+            <p>Sign in to your account to explore and register for college events</p>
+        </div>
+    </div>
+
+    <!-- Right Side: Login Form -->
+    <div class="login-form-container">
+        <div class="form-header">
+            <h1>Student Login</h1>
+        </div>
+
+        <form id="loginForm" novalidate>
+            <label for="regNo">Registration Number / Email</label>
+            <input id="regNo" type="text" placeholder="Enter your username/email" required>
+
+            <label for="password">Password</label>
+            <input id="password" type="password" placeholder="Enter your password" required minlength="8">
+
+            <div class="help-text">
+                <a href="#">Having trouble sign in?</a>
+            </div>
+
+            <button id="submitBtn" type="submit" disabled>Login In</button>
+
+            <div class="divider">Or Sign in with</div>
+
+            <div class="social-login">
+                <button class="social-btn" type="button" onclick="event.preventDefault(); alert('Google login coming soon!')">
+                    <span>G</span>
+                    Google
+                </button>
+                <button class="social-btn" type="button" onclick="event.preventDefault(); alert('Facebook login coming soon!')">
+                    <span>f</span>
+                    Facebook
+                </button>
+            </div>
+
+            <div class="signup-section">
+                <p>Don't have an account? <a href="login.html" class="signup-link">Signup Now</a></p>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+(() => {
+    const form = document.getElementById('loginForm');
+    const regNo = document.getElementById('regNo');
+    const pwd = document.getElementById('password');
+    const btn = document.getElementById('submitBtn');
+
+    form.addEventListener('input', () => {
+        btn.disabled = !(form.checkValidity());
+    });
+
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        if (!btn.disabled) {
+            window.location.href = 'dashboard.html';
+        }
+    });
+})();
+</script>
+
+</body>
+</html>
+
+<script>
+(() => {
+    const form = document.getElementById('loginForm');
+    const regNo = document.getElementById('regNo');
+    const pwd = document.getElementById('password');
+    const btn = document.getElementById('submitBtn');
+
+    form.addEventListener('input', () => {
+        btn.disabled = !(form.checkValidity());
+    });
+
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        if (!btn.disabled) {
+            window.location.href = 'dashboard.html';
+        }
+    });
+})();
+</script>
+
+</body>
+</html>
+
+<script>
+(() => {
+    const form = document.getElementById('loginForm');
+    const regNo = document.getElementById('regNo');
+    const pwd = document.getElementById('password');
+    const btn = document.getElementById('submitBtn');
+
+    form.addEventListener('input', () => {
+        btn.disabled = !(form.checkValidity());
+    });
+
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        if (!btn.disabled) {
+            window.location.href = 'dashboard.html';
+        }
+    });
+})();
+</script>
+
+</body>
+</html>

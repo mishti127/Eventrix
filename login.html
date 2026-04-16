@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Login | College Events</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .login-container {
+            max-width: 660px;
+            margin: 28px auto;
+            background-color: #ffffff;
+            padding: 26px 34px;
+            border-radius: 12px;
+            box-shadow: 0 14px 36px rgba(241,181,0,0.08);
+            border-left: 6px solid #b8860b;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .form-header .logo { font-size: 28px; }
+
+        .form-header h1 {
+            margin: 0;
+            font-size: 26px;
+            color: #b8860b;
+            font-weight: 800;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #3a2a00;
+            font-weight: 700;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px 14px;
+            margin-bottom: 14px;
+            border: 1px solid #e0c97f;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+            background: #fff;
+            transition: box-shadow 150ms, border-color 150ms;
+            box-sizing: border-box;
+        }
+
+        /* 🔧 FIX: make select validation same width as inputs */
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+        }
+
+        input:focus, select:focus {
+            border-color: #f7e16c;
+            box-shadow: 0 6px 18px rgba(241,181,0,0.12);
+        }
+
+        .login-container button {
+            width: 100%;
+            padding: 12px;
+            background: #f1b500;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .login-container button:disabled {
+            opacity: 0.6;
+            cursor: default;
+        }
+
+        .hint {
+            font-size: 0.95rem;
+            color: #6b6b6b;
+            margin-bottom: 12px;
+        }
+
+        .strength {
+            font-size: 0.95rem;
+            margin: 6px 0 12px 0;
+            color: #444;
+        }
+
+        #strengthBar {
+            width: 100%;
+            height: 10px;
+            background: #f1f5f1;
+            border-radius: 6px;
+            margin-top: 6px;
+            overflow: hidden;
+        }
+
+        #strengthFill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg,#ff6b6b,#ffd166,#06d6a0);
+            transition: width 200ms ease;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login-container">
+    <form id="studentForm" novalidate>
+
+        <div class="form-header">
+            <span class="logo">🎓</span>
+            <h1>Student Registration Form</h1>
+        </div>
+
+        <label>Full Name</label>
+        <input id="fullName" type="text" required>
+        <div class="hint" id="nameHint" style="display:none; color:#b00020;">Only alphabets and spaces are allowed.</div>
+
+        <label>Email</label>
+        <input type="email" required>
+
+        <label>Phone Number</label>
+        <input id="phone" type="tel" pattern="\d{10}" required>
+        <div class="hint" id="phoneHint" style="display:none; color:#b00020;">Only digits are allowed.</div>
+
+        <label>Date of Birth</label>
+        <input id="dob" type="date" required>
+        <div class="hint" id="ageHint">Age must be between 18 and 30.</div>
+
+        <label>Course</label>
+        <select required>
+            <option value="">Select course</option>
+            <option>BTech</option>
+            <option>BCA</option>
+            <option>BBA</option>
+            <option>Architecture</option>
+        </select>
+
+        <label>Password</label>
+        <input id="password" type="password" required minlength="8">
+        <div class="strength">
+            Strength: <span id="strengthText">—</span>
+            <div id="strengthBar">
+                <div id="strengthFill"></div>
+            </div>
+        </div>
+
+        <label>Confirm Password</label>
+        <input id="confirmPassword" type="password" required>
+        <div class="hint" id="pwdMatch">Passwords must match.</div>
+
+        <button id="loginBtn" type="submit" disabled>Login</button>
+        <p class="hint" style="text-align:center; margin-top:12px;">Already have an account? <a href="loginn.html">Login here</a></p>
+    </form>
+</div>
+
+<script>
+(() => {
+    const fullName = document.getElementById('fullName');
+    const nameHint = document.getElementById('nameHint');
+    const phone = document.getElementById('phone');
+    const phoneHint = document.getElementById('phoneHint');
+    
+    // Full Name validation - only alphabets and spaces
+    fullName.addEventListener('input', () => {
+        const hasNumbers = /[0-9]/.test(fullName.value);
+        const hasSpecialChars = /[^a-zA-Z\s]/.test(fullName.value);
+        if (hasNumbers || hasSpecialChars) {
+            nameHint.style.display = 'block';
+            fullName.style.borderColor = '#b00020';
+            fullName.style.boxShadow = '0 4px 8px rgba(176, 0, 32, 0.15)';
+        } else {
+            nameHint.style.display = 'none';
+            fullName.style.borderColor = '#e0c97f';
+            fullName.style.boxShadow = 'none';
+        }
+        validate();
+    });
+    
+    // Phone number validation - only digits
+    phone.addEventListener('input', () => {
+        const hasLetters = /[a-zA-Z]/.test(phone.value);
+        const hasSpecialChars = /[^0-9]/.test(phone.value);
+        if (hasLetters || hasSpecialChars) {
+            phoneHint.style.display = 'block';
+            phone.style.borderColor = '#b00020';
+            phone.style.boxShadow = '0 4px 8px rgba(176, 0, 32, 0.15)';
+        } else {
+            phoneHint.style.display = 'none';
+            phone.style.borderColor = '#e0c97f';
+            phone.style.boxShadow = 'none';
+        }
+        validate();
+    });
+    
+    const dob = document.getElementById('dob');
+    const today = new Date();
+    dob.max = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate()).toISOString().split('T')[0];
+    dob.min = new Date(today.getFullYear() - 30, today.getMonth(), today.getDate()).toISOString().split('T')[0];
+
+    const pwd = document.getElementById('password');
+    const confirmPwd = document.getElementById('confirmPassword');
+    const strengthFill = document.getElementById('strengthFill');
+    const strengthText = document.getElementById('strengthText');
+    const pwdMatch = document.getElementById('pwdMatch');
+    const loginBtn = document.getElementById('loginBtn');
+    const form = document.getElementById('studentForm');
+
+    function score(p) {
+        let s = 0;
+        if (p.length >= 8) s++;
+        if (/[A-Z]/.test(p)) s++;
+        if (/[0-9]/.test(p)) s++;
+        if (/[^A-Za-z0-9]/.test(p)) s++;
+        return s;
+    }
+
+    pwd.addEventListener('input', () => {
+        const s = score(pwd.value);
+        strengthFill.style.width = (s / 4) * 100 + '%';
+        strengthText.textContent = ['Very weak','Weak','Okay','Good','Strong'][s];
+        validate();
+    });
+
+    confirmPwd.addEventListener('input', validate);
+    form.addEventListener('input', validate);
+
+    function validate() {
+        const match = pwd.value === confirmPwd.value && pwd.value !== '';
+        pwdMatch.textContent = match ? 'Passwords match.' : 'Passwords must match.';
+        pwdMatch.style.color = match ? '#0a7b2f' : '#b00020';
+        
+        const nameValid = !/[0-9]/.test(fullName.value) && !/[^a-zA-Z\s]/.test(fullName.value);
+        const phoneValid = !/[a-zA-Z]/.test(phone.value) && !/[^0-9]/.test(phone.value);
+        
+        loginBtn.disabled = !(form.checkValidity() && match && nameValid && phoneValid);
+    }
+
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        if (!loginBtn.disabled) {
+            window.location.href = 'dashboard.html';
+        }
+    });
+})();
+</script>
+</body>
+</html>

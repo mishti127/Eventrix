@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upcoming Events</title>
+   <link rel="stylesheet" href="style.css">
+    <style>
+
+        /* Improve upcoming events table layout */
+#eventsTable {
+    table-layout: fixed;
+    width: 100%;
+}
+
+#eventsTable th:nth-child(1),
+#eventsTable td:nth-child(1){
+    width: 15%;
+}
+
+#eventsTable th:nth-child(2),
+#eventsTable td:nth-child(2){
+    width: 15%;
+}
+
+#eventsTable th:nth-child(3),
+#eventsTable td:nth-child(3){
+    width: 12%;
+}
+
+#eventsTable th:nth-child(4),
+#eventsTable td:nth-child(4){
+    width: 16%;
+}
+
+#eventsTable th:nth-child(5),
+#eventsTable td:nth-child(5){
+    width: 16%;
+}
+
+#eventsTable th:nth-child(6),
+#eventsTable td:nth-child(6){
+    width: 26%;
+}
+
+
+        /* Registration box styles matching site theme */
+        #registerBox {
+            border: 1px solid #f0d88a;
+            background: #fffdf4;
+            padding: 34px 30px;
+            border-radius: 10px;
+            width: 72%;
+            margin: 18px auto 30px auto;
+            box-shadow: 0 10px 30px rgba(241,181,0,0.08);
+        }
+
+        #toggleHeader {
+            font-weight: 700;
+            color: #3a2a00;
+            padding: 8px 10px;
+            border-radius: 6px;
+            background: linear-gradient(90deg,#fff9d6,#fffbea);
+            display: inline-block;
+        }
+
+        /* ensure all elements inside register box use border-box sizing so padding doesn't cause overflow */
+        #registerBox, #registerBox * { box-sizing: border-box; }
+
+        .reg-row { display: flex; gap: 48px; margin-bottom: 32px; flex-wrap: wrap; }
+        /* allow columns to grow/shrink and wrap when needed; keep a sensible min width */
+        .reg-col { flex: 1 1 calc(50% - 24px); min-width: 220px; }
+        .reg-field { margin-bottom: 32px; }
+
+        label.reg-label { display:block; font-weight:700; color:#3a2a00; margin-bottom:10px; }
+        input.reg-input, select.reg-input, textarea.reg-input {
+            width:100%; max-width:100%; padding:16px 18px; border-radius:8px; border:1px solid #e0c97f; background:#fff; font-size:15px;
+            margin-bottom:28px; box-sizing: border-box;
+        }
+
+        input.reg-input:focus, select.reg-input:focus, textarea.reg-input:focus { outline:none; box-shadow:0 8px 22px rgba(241,181,0,0.12); }
+
+        .reg-actions { display:flex; gap:14px; margin-top:30px; margin-bottom:28px; }
+        .btn { padding:10px 16px; border-radius:8px; border:none; cursor:pointer; }
+        .btn-primary { background:#f1b500; color:#fff; box-shadow:0 8px 20px rgba(209,150,23,0.12); }
+        .btn-secondary { background:#fff; border:1px solid #e0c97f; color:#3a2a00; }
+
+        .success { margin-top:18px; padding:12px; background:#e6f7e6; border-left:4px solid #b4e1b4; color:#0a7b2f; border-radius:6px; }
+
+        @media (max-width:800px){
+            #registerBox { width: 94%; }
+            .reg-row { flex-direction:column; }
+            .reg-col { flex: 1 0 auto; }
+        }
+    </style>
+</head>
+<body>
+
+<header align="center">
+    <h1>Annual College Fest & Events</h1>
+    <p>A Platform for Talent, Innovation, Culture, and Student Development</p>
+    <a href="loginn.html" class="logout-btn">Logout</a>
+</header>
+
+
+<table border="1" width="100%">
+<tr>
+
+    
+    <td width="20%" valign="top">
+        <h3>EXPLORE</h3>
+        <ul>
+            <li><a href="dashboard.html">Dashboard</a></li><br>
+            <li><a href="main.html">Home</a></li><br>
+            <li><a href="index.html">About Fest</a></li><br>
+            <li><a href="event.html">Events</a></li><br>
+            <li><a href="cultural.html">Cultural</a></li><br>
+            <li><a href="technical.html">Technical</a></li><br>
+            <li><a href="upcoming.html">Upcoming Events</a></li><br>
+            <li><a href="event-reviews.html">Rate Events</a></li><br>
+            <li><a href="contact.html">Contact Us</a></li><br>
+        </ul>
+    </td>
+
+ 
+    <td width="80%" valign="top">
+
+        <h1 align="center">Upcoming Events</h1>
+        <p align="center"><i>Stay Updated and Participate Actively</i></p>
+        <hr>
+
+        <p>
+        The following events are scheduled for the current academic year. These events
+        are planned to enhance technical skills, cultural awareness, and overall
+        personality development of students.
+        </p>
+
+        <p>
+        Students are encouraged to actively participate in upcoming events to gain
+        hands-on experience, improve teamwork, and explore their interests beyond
+        academics.
+        </p>
+
+        <h2>Why Participate in Upcoming Events?</h2>
+        <ul>
+            <li>Gain practical knowledge and real-world experience</li>
+            <li>Improve communication and leadership skills</li>
+            <li>Showcase talents and technical abilities</li>
+            <li>Earn certificates and recognitions</li>
+            <li>Build strong academic and professional profiles</li>
+        </ul>
+
+        <h2>List of Upcoming Events</h2>
+
+<table border="1" id="eventsTable">
+<tr>
+<th>Event Name</th>
+<th>Date</th>
+<th>Time</th>
+<th>Venue</th>
+<th>Organizer</th>
+<th>Description</th>
+</tr>
+</table>
+
+        <h2>Registration and Participation Guidelines</h2>
+        <ul>
+            <li>Students must register before the event deadline</li>
+            <li>Participation is open to all departments</li>
+            <li>Team events require prior team formation</li>
+            <li>Certificates will be provided to participants</li>
+            <li>Winners will receive prizes and recognitions</li>
+        </ul>
+
+        <p>
+        Detailed information about each event, including rules and schedules, will be
+        shared through official college notice boards and communication channels.
+        </p>
+
+        <p>
+        We encourage all students to make the most of these opportunities and actively
+        participate in upcoming events to enrich their college experience.
+        </p>
+        <!-- ===== EVENT REGISTRATION BOX ===== -->
+
+<h2>Event Registration</h2>
+
+<div id="registerBox">
+
+    <div id="toggleHeader" onclick="toggleEvents()">
+        ▶ Do you want to register for any upcoming event?
+    </div>
+
+    <div id="eventSection" style="display:none; margin-top:12px;">
+
+        <div class="reg-field">
+            <label class="reg-label">Select Event</label>
+            <select id="eventSelect" class="reg-input" onchange="showForm()">
+                <option value="">-- Choose an Event --</option>
+                <option value="Code Fiesta">Code Fiesta</option>
+                <option value="Cultural Night">Cultural Night</option>
+                <option value="Robotics Workshop">Robotics Workshop</option>
+                <option value="Photography Exhibition">Photography Exhibition</option>
+            </select>
+        </div>
+
+        <div id="formSection" style="display:none; margin-top:15px;">
+            <h3 style="color:#b8860b; margin-top:0;">Registration Form</h3>
+
+            <form id="eventRegForm" onsubmit="return registerEvent(event)">
+
+                <div class="reg-row">
+                    <div class="reg-col reg-field">
+                        <label class="reg-label">Full Name</label>
+                        <input id="reg_name" class="reg-input" type="text" required>
+                    </div>
+                    <div class="reg-col reg-field">
+                        <label class="reg-label">Registration Number</label>
+                        <input id="reg_no" class="reg-input" type="text" required>
+                    </div>
+                </div>
+
+                <div class="reg-row">
+                    <div class="reg-col reg-field">
+                        <label class="reg-label">College Email</label>
+                        <input id="reg_email" class="reg-input" type="email" required>
+                    </div>
+                    <div class="reg-col reg-field">
+                        <label class="reg-label">Phone</label>
+                        <input id="reg_phone" class="reg-input" type="tel" placeholder="9876543210" pattern="\d{10}">
+                    </div>
+                </div>
+
+                <div class="reg-row">
+                    <div class="reg-col reg-field">
+                        <label class="reg-label">Date of Birth</label>
+                        <input id="reg_dob" class="reg-input" type="date">
+                    </div>
+                    <div class="reg-col reg-field">
+                        <label class="reg-label">Course / Department</label>
+                        <select id="reg_course" class="reg-input">
+                            <option value="">Select</option>
+                            <option>BTech</option>
+                            <option>BCA</option>
+                            <option>BBA</option>
+                            <option>Architecture</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="reg-row">
+                    <div class="reg-col reg-field">
+                        <label class="reg-label">Team Size (if applicable)</label>
+                        <input id="reg_team" class="reg-input" type="number" min="1" max="10" placeholder="1">
+                    </div>
+                    <div class="reg-col reg-field">
+                        <label class="reg-label">Selected Event</label>
+                        <input id="selectedEvent" class="reg-input" type="text" readonly>
+                    </div>
+                </div>
+
+                <div class="reg-field">
+                    <label class="reg-label">Additional Details / Remarks</label>
+                    <textarea id="reg_notes" class="reg-input" rows="3" placeholder="Any special requirements or team member names"></textarea>
+                </div>
+
+                <div class="reg-actions">
+                    <button type="submit" class="btn btn-primary">Register</button>
+                    <button type="button" class="btn btn-secondary" onclick="document.getElementById('eventRegForm').reset();">Reset</button>
+                </div>
+
+                <div id="regSuccess" style="display:none;" class="success">Registration successful — your entry has been recorded.</div>
+
+            </form>
+        </div>
+
+    </div>
+</div>
+
+
+       
+        
+
+    </td>
+</tr>
+</table>
+<script src="script.js"></script>
+
+
+</body>
+</html>
